@@ -31,3 +31,4 @@
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/API.pdb
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/API.genruntimeconfig.cache
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/ref/API.dll
+/home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/API.sourcelink.json
