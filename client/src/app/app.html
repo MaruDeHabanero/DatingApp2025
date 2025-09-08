@@ -1,9 +1,14 @@
-<h1 class="text-3x1 text-red-500">{{ title() }}</h1>
+<div class="card bg-base-100 w-1/2 mx-auto p-10 mt-10 shadow-x1">
+  <h1 class="text-3x1 text-red-500">{{ title() }}</h1>
 
-<ul>
-  @for (member of members(); track member.id) {
-    <li>{{ member.id }} - {{ member.displayName }}</li>
-  }
-</ul>
-
-<button class="btn btn-primary">Primary</button>
+  <ul class="list">
+    @for (member of members(); track member.id) {
+      <li class="list-row items-center">
+        <img src="./user.jpg" class="size-12 rounded-box" />
+        <div>
+          {{ member.displayName }}
+        </div>
+      </li>
+    }
+  </ul>
+</div>
