@@ -32,6 +32,8 @@
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/API.genruntimeconfig.cache
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/ref/API.dll
 /home/maru/Documents/dotNet/DatingApp/API/obj/Debug/net9.0/API.sourcelink.json
+<<<<<<< HEAD
+=======
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/Humanizer.dll
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/Microsoft.Bcl.AsyncInterfaces.dll
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/Microsoft.Build.Locator.dll
@@ -153,3 +155,4 @@
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/runtimes/win-arm64/native/e_sqlite3.dll
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
 /home/maru/Documents/dotNet/DatingApp/API/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
+>>>>>>> main
