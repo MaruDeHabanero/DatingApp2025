@@ -54,6 +54,9 @@ app.UseCors(x => x.AllowAnyHeader()
 ));
 
 app.UseCors("AngularCorsPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
