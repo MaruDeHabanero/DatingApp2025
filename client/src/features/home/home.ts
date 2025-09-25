@@ -9,10 +9,10 @@ import { User } from '../../types/user';
   styleUrl: './home.css',
 })
 export class Home {
-  @Input({ required: true }) usersFromApp: User[] = [];
+  @Input({ required: true }) membersFromApp: User[] = [];
   protected registerMode = signal(false);
 
-  showRegister(): void {
-    this.registerMode.set(true);
+  showRegister(value: boolean): void {
+    this.registerMode.set(value);
   }
 }
