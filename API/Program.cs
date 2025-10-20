@@ -31,7 +31,12 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 
 builder.Services.AddCors();
+/* 
+    Crea instancias de Token y MembersRepository, para que cualquier instancia inyectada
+    de ITokenService o IMembersRepository use estas implementaciones.
+*/
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IMembersRepository, MembersRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
     {
         var tokenKey = builder.Configuration["TokenKey"]
