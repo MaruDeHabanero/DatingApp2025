@@ -18,9 +18,9 @@ public class Member
 
     //Navigation properties
     [ForeignKey(nameof(Id))]
-    [JsonIgnore]
+    [JsonIgnore] 
     public AppUser User { get; set; } = null!;
 
-    [JsonIgnore]
+    [JsonIgnore] 
     public List<Photo> Photos { get; set; } = [];
 }
