@@ -8,6 +8,9 @@ import { authGuard } from '../core/guard/auth-guard';
 import { TestErrors } from '../test-errors/test-errors';
 import { NotFound } from '../shared/errors/not-found/not-found';
 import { ServerError } from '../shared/errors/server-error/server-error';
+import { MemberProfile } from '../features/member-profile/member-profile';
+import { MemberPhotos } from '../features/member-photos/member-photos';
+import { MemberMessages } from '../features/member-messages/member-messages';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -18,12 +21,21 @@ export const routes: Routes = [
     children: [
       { path: '', component: Home },
       { path: 'members', component: MemberList, canActivate: [authGuard] },
-      { path: 'members/:id', component: MemberDetail },
+      {
+        path: 'members/:id',
+        component: MemberDetail,
+        children: [
+          { path: '', redirectTo: 'profile', pathMatch: 'full' },
+          { path: 'profile', component: MemberProfile, title: "Profile" },
+          { path: 'photos', component: MemberPhotos, title: "Photos" },
+          { path: 'messages', component: MemberMessages, title: "Messages" },
+        ],
+      },
       { path: 'lists', component: Lists },
       { path: 'messages', component: Messages },
     ],
   },
-  { path: "errors", component: TestErrors },
-  { path: "server-error", component: ServerError },
+  { path: 'errors', component: TestErrors },
+  { path: 'server-error', component: ServerError },
   { path: '**', component: NotFound },
 ];
