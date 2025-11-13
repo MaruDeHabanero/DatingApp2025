@@ -1,11 +1,11 @@
 meta {
   name: Members - Valid
   type: http
-  seq: 1
+  seq: 2
 }
 
 get {
-  url: https:localhost:5001/api/members
+  url: {{baseUrl}}/api/members
   body: none
   auth: bearer
 }
@@ -15,11 +15,11 @@ auth:bearer {
 }
 
 tests {
-  test("Should return members", function() {
+  test("Should return OK", function() {
     expect(res.getStatus()).to.equal(200);
   });
   
-  test("should return members", function() {
+  test("Should return members", function() {
     const jsonData = res.getBody();
     const firstMember = jsonData[0];
   
