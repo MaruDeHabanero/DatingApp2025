@@ -1,10 +1,4 @@
-import {
-  ApplicationConfig,
-  inject,
-  provideAppInitializer,
-  provideBrowserGlobalErrorListeners,
-  provideZonelessChangeDetection,
-} from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -19,23 +13,24 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
     provideHttpClient(withInterceptors([errorInterceptor, jwtInterceptor])),
-
     provideAppInitializer(async () => {
       const initService = inject(InitService);
 
       return new Promise<void>((resolve) => {
         setTimeout(async () => {
           try {
-            return lastValueFrom(initService.init());
+            return lastValueFrom(initService.init())
           } finally {
-            const splash = document.getElementById('initial-splash');
+            const splash = document.getElementById("initial-splash");
+
             if (splash) {
               splash.remove();
             }
+
             resolve();
           }
         }, 500);
       });
-    }),
-  ],
+    })
+  ]
 };

@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
   selector: 'app-not-found',
   imports: [],
   templateUrl: './not-found.html',
-  styleUrl: './not-found.css',
+  styleUrl: './not-found.css'
 })
 export class NotFound {
   private location = inject(Location);

@@ -11,26 +11,22 @@ public class TokenService(IConfiguration configuration) : ITokenService
 {
     public string CreateToken(AppUser user)
     {
-        var tokenKey = configuration["TokenKey"] ?? throw new ArgumentNullException("TokenKey is null.");
-
+        var tokenKey = configuration["TokenKey"] ?? throw new ArgumentNullException("Cannot get the token key");
         if (tokenKey.Length < 64)
         {
-            throw new ArgumentException("TokenKey must be >= 64 chars.");
+            throw new ArgumentException("The token key must be >= 64 chars");
         }
-
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
         var claims = new List<Claim>
         {
-            new (ClaimTypes.Email, user.Email),
-            new (ClaimTypes.NameIdentifier, user.Id),
-
+            new(ClaimTypes.Email, user.Email),
+            new(ClaimTypes.NameIdentifier, user.Id)
         };
-
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
         var tokenDescription = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(7),
+            Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials = creds
         };
         var tokenHandler = new JwtSecurityTokenHandler();

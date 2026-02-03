@@ -16,7 +16,7 @@ export class MembersService {
   }
 
   getMembers(): Observable<Member[]> {
-    return this.http.get<Member[]>(this.baseUrl + 'members');
+    return this.http.get<Member[]>(this.baseUrl + "members");
   }
 
   getPhotos(id: string) {

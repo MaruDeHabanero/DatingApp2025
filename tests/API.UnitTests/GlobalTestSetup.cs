@@ -1,6 +1,5 @@
 using API.Data;
 using Microsoft.EntityFrameworkCore;
-using NUnit.Framework;
 
 namespace API.UnitTests;
 
@@ -13,13 +12,14 @@ public class GlobalTestSetup
     public async Task Setup()
     {
         DbContextOptions<AppDbContext> options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseSqlite("Data Source=datingapp.db")
+            .UseSqlite("Data source=dating.db")
             .Options;
 
         AppDbContext = new AppDbContext(options);
         await AppDbContext.Database.MigrateAsync();
         await Seed.SeedUsers(AppDbContext);
     }
+
     [OneTimeTearDown]
     public async Task TearDown()
     {

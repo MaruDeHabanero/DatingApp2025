@@ -20,9 +20,8 @@ export class Register {
         console.log(response);
         this.cancel();
       },
-      error: error => console.error(error)
+      error: error => console.log(error)
     });
-    console.log(this.creds);
   }
 
   cancel(): void {

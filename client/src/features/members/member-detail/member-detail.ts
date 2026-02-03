@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { filter } from 'rxjs';
 import { Member } from '../../../types/member';
+import { filter } from 'rxjs';
 import { AgePipe } from '../../../core/pipes/age-pipe';
 
 @Component({
@@ -10,16 +10,16 @@ import { AgePipe } from '../../../core/pipes/age-pipe';
   templateUrl: './member-detail.html',
   styleUrl: './member-detail.css'
 })
-export class MemberDetail {
+export class MemberDetail implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   protected member = signal<Member | undefined>(undefined);
   protected title = signal<string | undefined>("Profile");
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.route.data.subscribe({
-      next: data => this.member.set(data['member'])
-    })
+        next: data => this.member.set(data["member"])
+    });
     this.title.set(this.route.firstChild?.snapshot?.title);
 
     this.router.events.pipe(

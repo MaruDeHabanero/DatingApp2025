@@ -7,12 +7,12 @@ import { EMPTY } from 'rxjs';
 export const memberResolver: ResolveFn<Member> = (route, state) => {
   const membersService = inject(MembersService);
   const router = inject(Router);
-  const memberId = route.paramMap.get('id');
+  const memberId = route.paramMap.get("id");
 
-  if (memberId){
+  if (memberId) {
     return membersService.getMember(memberId);
   }
 
-  router.navigateByUrl('/not-found');
+  router.navigateByUrl("/not-found");
   return EMPTY;
 };

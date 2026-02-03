@@ -11,7 +11,7 @@ export const jwtInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: {
         Authorization: `Bearer ${user.token}`
       }
-    })
+    });
   }
 
   return next(req);

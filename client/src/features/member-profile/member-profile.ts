@@ -7,16 +7,15 @@ import { DatePipe } from '@angular/common';
   selector: 'app-member-profile',
   imports: [DatePipe],
   templateUrl: './member-profile.html',
-  styleUrl: './member-profile.css',
+  styleUrl: './member-profile.css'
 })
 export class MemberProfile implements OnInit {
   private route = inject(ActivatedRoute);
-
   protected member = signal<Member | undefined>(undefined);
 
   ngOnInit(): void {
-    this.route.parent?.data.subscribe((data) => {
-      this.member.set(data['member']);
-    });
+    this.route.parent?.data.subscribe(data => {
+      this.member.set(data["member"]);
+    })
   }
 }

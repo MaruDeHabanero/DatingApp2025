@@ -41,7 +41,7 @@ public class MembersControllerTests
     public async Task GetMembers_Valid_ReturnMembers()
     {
         // Arrange
-        IReadOnlyList<Member> expectedMembers = [GetTestMember()];
+        IReadOnlyList<Member> expectedMembers = [GetTestMember() ];
 
         _mockMembersRepository.GetMembersAsync().Returns(expectedMembers);
 
@@ -103,7 +103,7 @@ public class MembersControllerTests
     {
         // Arrange
         var expectedMember = GetTestMember();
-        IReadOnlyList<Photo> expectedPhotos = [GetTestPhoto()];
+        IReadOnlyList<Photo> expectedPhotos = [GetTestPhoto() ];
 
         _mockMembersRepository.GetPhotosAsync(expectedMember.Id).Returns(expectedPhotos);
 

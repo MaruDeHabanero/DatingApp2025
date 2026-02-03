@@ -32,19 +32,19 @@ public class ExceptionMiddleware(
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, ex.Message);
+            logger.LogError(ex, "{message}", ex.Message);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            var response = env.IsDevelopment()
-                ? new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace)
-                : new ApiException(context.Response.StatusCode, ex.Message, "Internal Server Error");
+            var response = env.IsDevelopment() ?
+                new ApiException(context.Response.StatusCode, ex.Message, ex.StackTrace) :
+                new ApiException(context.Response.StatusCode, ex.Message, "Internal server error");
 
             var option = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
-
             var json = JsonSerializer.Serialize(response, option);
 
             await context.Response.WriteAsync(json);
         }
     }
+
 }

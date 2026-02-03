@@ -1,8 +1,11 @@
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
-using API.Data;
+using API.DTOs;
 using API.Entities;
 using Microsoft.EntityFrameworkCore;
+
+namespace API.Data;
 
 public class Seed
 {
@@ -10,8 +13,8 @@ public class Seed
     {
         if (await context.Users.AnyAsync()) return;
 
-        var seedUserData = await File.ReadAllTextAsync("Data/UserSeedData.json");
-        var seedUsers = JsonSerializer.Deserialize<List<SeedUserDto>>(seedUserData);
+        var seedUsersData = await File.ReadAllTextAsync("Data/UserSeedData.json");
+        var seedUsers = JsonSerializer.Deserialize<List<SeedUserDto>>(seedUsersData);
 
         if (seedUsers == null)
         {
@@ -19,17 +22,16 @@ public class Seed
             return;
         }
 
-        using var hmac = new HMACSHA512();
-
         foreach (var seedUser in seedUsers)
         {
+            using var hmac = new HMACSHA512();
             var user = new AppUser
             {
                 Id = seedUser.Id,
                 Email = seedUser.Email,
                 DisplayName = seedUser.DisplayName,
                 ImageUrl = seedUser.ImageUrl,
-                PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes("password")),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd")),
                 PasswordSalt = hmac.Key,
                 Member = new Member
                 {
@@ -42,7 +44,7 @@ public class Seed
                     BirthDay = seedUser.BirthDay,
                     ImageUrl = seedUser.ImageUrl,
                     LastActive = seedUser.LastActive,
-                    Created = seedUser.Created,
+                    Created = seedUser.Created
                 }
             };
 
@@ -54,6 +56,7 @@ public class Seed
 
             context.Users.Add(user);
         }
+
         await context.SaveChangesAsync();
     }
 }

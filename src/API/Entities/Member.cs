@@ -16,11 +16,12 @@ public class Member
     public required string City { get; set; }
     public required string Country { get; set; }
 
-    //Navigation properties
+    // Navigation properties
+    [JsonIgnore]
     [ForeignKey(nameof(Id))]
-    [JsonIgnore] 
     public AppUser User { get; set; } = null!;
 
-    [JsonIgnore] 
+    [JsonIgnore]
     public List<Photo> Photos { get; set; } = [];
+
 }
