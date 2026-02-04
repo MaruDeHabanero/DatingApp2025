@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Nav } from '../layout/nav/nav';
+import { Nav } from "../layout/nav/nav";
 import { Router, RouterOutlet } from '@angular/router';
 import { NgClass } from '@angular/common';
 
@@ -7,7 +7,7 @@ import { NgClass } from '@angular/common';
   selector: 'app-root',
   imports: [Nav, RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.css'
 })
 export class App {
   protected router = inject(Router);

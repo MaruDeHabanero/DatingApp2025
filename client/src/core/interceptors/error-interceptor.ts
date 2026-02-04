@@ -1,9 +1,8 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { ToastService } from '../services/toast-service';
 import { inject } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { catchError } from 'rxjs';
-
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const toast = inject(ToastService);
@@ -14,7 +13,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       if (error) {
         switch (error.status) {
           case 400:
-            if (error.error.errors){
+            if (error.error.errors) {
               const modelStateErrors = [];
               for (const key in error.error.errors) {
                 if (error.error.errors[key]) {
@@ -23,21 +22,21 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
               }
               throw modelStateErrors.flat();
             } else {
-              toast.error(error.error + ' ' + error.status);
+              toast.error(error.error);
             }
             break;
           case 401:
-            toast.error('Unauthorized');
+            toast.error("Unauthorized");
             break;
           case 404:
-            router.navigateByUrl('/not-found');
+            router.navigateByUrl("/not-found")
             break;
           case 500:
             const navigationExtras: NavigationExtras = { state: { error: error.error } };
-            router.navigateByUrl('/server-error', navigationExtras);
+            router.navigateByUrl("/server-error", navigationExtras);
             break;
           default:
-            toast.error("The unexpected happened");
+            toast.error("The unexpected happened!")
             break;
         }
       }

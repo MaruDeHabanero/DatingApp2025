@@ -3,16 +3,16 @@ export type User = {
   displayName: string;
   email: string;
   token: string;
-  imageUrl: string;
-};
+  imageUrl?: string;
+}
 
 export type LoginCreds = {
   email: string;
   password: string;
-};
+}
 
 export type RegisterCreds = {
-  displayName: string;
   email: string;
+  displayName: string;
   password: string;
-};
+}
