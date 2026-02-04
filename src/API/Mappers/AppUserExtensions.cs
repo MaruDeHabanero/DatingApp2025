@@ -4,7 +4,7 @@ using API.Interfaces;
 
 namespace API.Mappers;
 
-public static class AppUserMapper
+public static class AppUserExtensions
 {
     public static UserResponse ToDto(this AppUser appUser, ITokenService tokenService)
     {

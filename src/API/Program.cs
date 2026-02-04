@@ -36,6 +36,22 @@ public static class Program
         AddDbContext(builder);
         AddScopedServices(builder);
 
+        var allowedOrigins = new[]
+        {
+            "http://localhost:4200",
+            "https://localhost:4200"
+        };
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("SpaCors", policy =>
+            {
+                policy.WithOrigins(allowedOrigins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
+
         builder.Services.AddOpenApiDocument(options =>
         {
             options.PostProcess = document =>
@@ -78,22 +94,17 @@ public static class Program
 
         // Configure the HTTP request pipeline.
         app.UseMiddleware<ExceptionMiddleware>();
+        app.UseCors("SpaCors");
+
         if (app.Environment.IsDevelopment())
         {
-            app.UseCors(x => x.AllowAnyHeader()
-            .AllowAnyMethod()
-            .WithOrigins(
-                "http://localhost:4200",
-                "https://localhost:4200"
-            ));
-
             app.UseDeveloperExceptionPage();
             app.UseOpenApi();
             app.UseSwaggerUi();
-
             app.UseReDoc(options =>
             {
                 options.Path = "/redoc";
+                options.DocumentPath = "/swagger/v1/swagger.json";
             });
         }
         app.UseAuthentication();
