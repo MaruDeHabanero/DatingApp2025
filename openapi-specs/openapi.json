@@ -18,9 +18,7 @@
   "paths": {
     "/api/Account/register": {
       "post": {
-        "tags": [
-          "Account"
-        ],
+        "tags": ["Account"],
         "summary": "Creates an User.",
         "description": "Sample request:\n            \n    POST api/account/register\n    {\n       \"displayName\": \"displayName\",\n       \"email\": \"test@test.com\",\n       \"password\": \"password\"\n    }",
         "operationId": "Account_Register",
@@ -62,9 +60,7 @@
     },
     "/api/Account/login": {
       "post": {
-        "tags": [
-          "Account"
-        ],
+        "tags": ["Account"],
         "summary": "Login as an User.",
         "operationId": "Account_Login",
         "requestBody": {
@@ -105,9 +101,7 @@
     },
     "/api/Error/bad-request": {
       "get": {
-        "tags": [
-          "Error"
-        ],
+        "tags": ["Error"],
         "operationId": "Error_GetBadRequest",
         "responses": {
           "200": {
@@ -126,9 +120,7 @@
     },
     "/api/Error/auth": {
       "get": {
-        "tags": [
-          "Error"
-        ],
+        "tags": ["Error"],
         "operationId": "Error_GetAuth",
         "responses": {
           "200": {
@@ -147,9 +139,7 @@
     },
     "/api/Error/not-found": {
       "get": {
-        "tags": [
-          "Error"
-        ],
+        "tags": ["Error"],
         "operationId": "Error_GetNotFound",
         "responses": {
           "200": {
@@ -168,9 +158,7 @@
     },
     "/api/Error/server-error": {
       "get": {
-        "tags": [
-          "Error"
-        ],
+        "tags": ["Error"],
         "operationId": "Error_GetServerError",
         "responses": {
           "200": {
@@ -189,9 +177,7 @@
     },
     "/api/Members": {
       "get": {
-        "tags": [
-          "Members"
-        ],
+        "tags": ["Members"],
         "operationId": "Members_GetMembers",
         "responses": {
           "200": {
@@ -210,9 +196,7 @@
         }
       },
       "put": {
-        "tags": [
-          "Members"
-        ],
+        "tags": ["Members"],
         "operationId": "Members_UpdateMember",
         "requestBody": {
           "x-name": "request",
@@ -243,9 +227,7 @@
     },
     "/api/Members/{id}": {
       "get": {
-        "tags": [
-          "Members"
-        ],
+        "tags": ["Members"],
         "operationId": "Members_GetMember",
         "parameters": [
           {
@@ -274,9 +256,7 @@
     },
     "/api/Members/{id}/photos": {
       "get": {
-        "tags": [
-          "Members"
-        ],
+        "tags": ["Members"],
         "operationId": "Members_GetPhotos",
         "parameters": [
           {
@@ -308,9 +288,7 @@
     },
     "/api/Members/photo": {
       "post": {
-        "tags": [
-          "Members"
-        ],
+        "tags": ["Members"],
         "operationId": "Members_AddPhoto",
         "requestBody": {
           "content": {
@@ -354,6 +332,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Photo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Members/photo/{photoId}": {
+      "put": {
+        "tags": ["Members"],
+        "operationId": "Members_SetMainPhoto",
+        "parameters": [
+          {
+            "name": "photoId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -418,11 +427,7 @@
       "RegisterRequest": {
         "type": "object",
         "additionalProperties": false,
-        "required": [
-          "displayName",
-          "email",
-          "password"
-        ],
+        "required": ["displayName", "email", "password"],
         "properties": {
           "displayName": {
             "type": "string",
