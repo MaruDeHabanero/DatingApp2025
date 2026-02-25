@@ -34,12 +34,12 @@ export class MemberPhotos implements OnInit {
   onUploadImage(file: File) {
     this.loading.set(true);
     this.membersService.uploadPhoto(file).subscribe({
-      next: (photo) => {
+      next: photo => {
         this.membersService.editMode.set(false);
         this.loading.set(false);
         this.photos.update((photos) => [...photos, photo]);
       },
-      error: (error) => {
+      error: error => {
         console.log('Error while uploading the image: ', error);
         this.loading.set(false);
       },

@@ -37,6 +37,6 @@ export class MembersService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post(this.baseUrl + "members/photo", formData);
+    return this.http.post<Photo>(this.baseUrl + "members/photo", formData);
   }
 }
