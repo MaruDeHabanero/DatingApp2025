@@ -15,7 +15,7 @@ import { IconButton } from '../../shared/icon-button/icon-button';
 })
 export class MemberPhotos implements OnInit {
   private route = inject(ActivatedRoute);
-  private accountService = inject(MembersService);
+  private accountService = inject(AccountService);
   protected membersService = inject(MembersService);
   protected photos = signal<Photo[]>([]);
   protected loading = signal(false);
