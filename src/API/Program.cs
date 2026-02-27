@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.Json.Serialization;
 using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Middlewares;
 using API.Services;
@@ -35,6 +36,22 @@ public static class Program
 
         AddDbContext(builder);
         AddScopedServices(builder);
+
+        var allowedOrigins = new[]
+        {
+            "http://localhost:4200",
+            "https://localhost:4200"
+        };
+
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("SpaCors", policy =>
+            {
+                policy.WithOrigins(allowedOrigins)
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+            });
+        });
 
         builder.Services.AddOpenApiDocument(options =>
         {
@@ -78,22 +95,17 @@ public static class Program
 
         // Configure the HTTP request pipeline.
         app.UseMiddleware<ExceptionMiddleware>();
+        app.UseCors("SpaCors");
+
         if (app.Environment.IsDevelopment())
         {
-            app.UseCors(x => x.AllowAnyHeader()
-            .AllowAnyMethod()
-            .WithOrigins(
-                "http://localhost:4200",
-                "https://localhost:4200"
-            ));
-
             app.UseDeveloperExceptionPage();
             app.UseOpenApi();
             app.UseSwaggerUi();
-
             app.UseReDoc(options =>
             {
                 options.Path = "/redoc";
+                options.DocumentPath = "/swagger/v1/swagger.json";
             });
         }
         app.UseAuthentication();
@@ -133,5 +145,7 @@ public static class Program
     {
         builder.Services.AddScoped<ITokenService, TokenService>();
         builder.Services.AddScoped<IMembersRepository, MembersRepository>();
+        builder.Services.AddScoped<IPhotoService, PhotoService>();
+        builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
     }
 }
