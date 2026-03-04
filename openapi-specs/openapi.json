@@ -18,7 +18,9 @@
   "paths": {
     "/api/Account/register": {
       "post": {
-        "tags": ["Account"],
+        "tags": [
+          "Account"
+        ],
         "summary": "Creates an User.",
         "description": "Sample request:\n            \n    POST api/account/register\n    {\n       \"displayName\": \"displayName\",\n       \"email\": \"test@test.com\",\n       \"password\": \"password\"\n    }",
         "operationId": "Account_Register",
@@ -60,7 +62,9 @@
     },
     "/api/Account/login": {
       "post": {
-        "tags": ["Account"],
+        "tags": [
+          "Account"
+        ],
         "summary": "Login as an User.",
         "operationId": "Account_Login",
         "requestBody": {
@@ -101,7 +105,9 @@
     },
     "/api/Error/bad-request": {
       "get": {
-        "tags": ["Error"],
+        "tags": [
+          "Error"
+        ],
         "operationId": "Error_GetBadRequest",
         "responses": {
           "200": {
@@ -120,7 +126,9 @@
     },
     "/api/Error/auth": {
       "get": {
-        "tags": ["Error"],
+        "tags": [
+          "Error"
+        ],
         "operationId": "Error_GetAuth",
         "responses": {
           "200": {
@@ -139,7 +147,9 @@
     },
     "/api/Error/not-found": {
       "get": {
-        "tags": ["Error"],
+        "tags": [
+          "Error"
+        ],
         "operationId": "Error_GetNotFound",
         "responses": {
           "200": {
@@ -158,7 +168,9 @@
     },
     "/api/Error/server-error": {
       "get": {
-        "tags": ["Error"],
+        "tags": [
+          "Error"
+        ],
         "operationId": "Error_GetServerError",
         "responses": {
           "200": {
@@ -177,7 +189,9 @@
     },
     "/api/Members": {
       "get": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_GetMembers",
         "responses": {
           "200": {
@@ -196,7 +210,9 @@
         }
       },
       "put": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_UpdateMember",
         "requestBody": {
           "x-name": "request",
@@ -227,7 +243,9 @@
     },
     "/api/Members/{id}": {
       "get": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_GetMember",
         "parameters": [
           {
@@ -256,7 +274,9 @@
     },
     "/api/Members/{id}/photos": {
       "get": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_GetPhotos",
         "parameters": [
           {
@@ -288,7 +308,9 @@
     },
     "/api/Members/photo": {
       "post": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_AddPhoto",
         "requestBody": {
           "content": {
@@ -341,7 +363,9 @@
     },
     "/api/Members/photo/{photoId}": {
       "put": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_SetMainPhoto",
         "parameters": [
           {
@@ -370,7 +394,9 @@
         }
       },
       "delete": {
-        "tags": ["Members"],
+        "tags": [
+          "Members"
+        ],
         "operationId": "Members_DeletePhoto",
         "parameters": [
           {
@@ -456,7 +482,11 @@
       "RegisterRequest": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["displayName", "email", "password"],
+        "required": [
+          "displayName",
+          "email",
+          "password"
+        ],
         "properties": {
           "displayName": {
             "type": "string",
