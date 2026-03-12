@@ -1,5 +1,14 @@
 import { Component, inject, OnInit, output, signal } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { AccountService } from '../../../core/services/account-service';
 import { RegisterCreds } from '../../../types/user';
 import { JsonPipe } from '@angular/common';
@@ -67,6 +76,12 @@ export class Register {
     this.currentStep.update((prevStep) => prevStep - 1);
   }
 
+  getMaxDate() {
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 18);
+    return today.toISOString().split('T')[0];
+  }
+
   register(): void {
     console.group('REGISTER');
     console.log(this.credentialsForm.value);
@@ -74,7 +89,7 @@ export class Register {
     console.log(this.currentStep());
     if (this.credentialsForm.valid && this.profileForm.valid) {
       const formData = { ...this.credentialsForm.value, ...this.profileForm.value };
-      console.log('Form data:' + formData);
+      console.log('Form data:', formData);
     }
     console.groupEnd();
     // this.accountService.register(this.creds).subscribe({
