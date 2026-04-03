@@ -6,7 +6,7 @@ public interface IMembersRepository
 {
     void Update(Member member);
     Task<bool> SaveAllAsync();
-    Task<IReadOnlyList<Member>> GetMembersAsync();
+    Task<PaginationResult<Member>> GetMembersAsync(PaginationRequest paginationRequest);
     Task<Member?> GetMemberAsync(string id);
     Task<IReadOnlyList<Photo>> GetPhotosAsync(string memberId);
     Task<Member> GetMemberForUpdateAsync(string memberId);

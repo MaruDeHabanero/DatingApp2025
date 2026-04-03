@@ -1,7 +1,7 @@
-using System.Security.Claims;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using API.Mappers;
 using Microsoft.AspNetCore.Authorization;
@@ -10,12 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [Authorize]
-public class MembersController(IMembersRepository membersRepository, IPhotoService photoService) : BaseApiController
+public class MembersController(IMembersRepository membersRepository,
+    IPhotoService photoService) : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers()
+    public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers([FromQuery] PaginationRequest paginationRequest)
     {
-        return Ok(await membersRepository.GetMembersAsync());
+        return Ok(await membersRepository.GetMembersAsync(paginationRequest));
     }
 
     [HttpGet("{id}")] // https://localhost:5001/api/members/bob-id
@@ -99,9 +100,9 @@ public class MembersController(IMembersRepository membersRepository, IPhotoServi
             return photo;
         }
 
-        return BadRequest("Something went wrong!");
+        return BadRequest("Somehting went wrong!");
     }
-    
+
     [HttpPut("photo/{photoId}")]
     public async Task<ActionResult> SetMainPhoto(int photoId)
     {
@@ -117,7 +118,7 @@ public class MembersController(IMembersRepository membersRepository, IPhotoServi
         if (member.ImageUrl == photo?.Url || photo == null)
         {
             return BadRequest("Cannot set photo as main");
-        } 
+        }
 
         member.ImageUrl = photo.Url;
         member.User.ImageUrl = photo.Url;
