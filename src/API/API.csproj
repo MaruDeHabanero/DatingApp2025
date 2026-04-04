@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -22,6 +22,7 @@
 
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <GenerateOpenApiSpec>false</GenerateOpenApiSpec>
   </PropertyGroup>
 
   <Target Name="DeleteGenerated" AfterTargets="Clean">
@@ -36,7 +37,7 @@
       <Compile Include="$(IntermediateOutputPath)/*.generated.cs" />
     </ItemGroup>
   </Target>
-  <Target Name="NSwagSpec" AfterTargets="Build">
+  <Target Name="NSwagSpec" AfterTargets="Build" Condition="'$(GenerateOpenApiSpec)' == 'true'">
     <Exec EnvironmentVariables="ASPNETCORE_ENVIRONMENT=Development" WorkingDirectory="../../nswag/document-generator" Command="$(NSwagExe_Net90) run openapi.nswag /variables:Configuration=$(Configuration),Project=$(MSBuildProjectDirectory)/$(MSBuildProjectFile),MsBuildOutputPath=$(MSBuildProjectDirectory)/$(OutDir)" />
   </Target>
 
