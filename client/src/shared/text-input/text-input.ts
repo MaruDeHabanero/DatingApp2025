@@ -5,7 +5,7 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } fro
   selector: 'app-text-input',
   imports: [ReactiveFormsModule],
   templateUrl: './text-input.html',
-  styleUrl: './text-input.css',
+  styleUrl: './text-input.css'
 })
 export class TextInput implements ControlValueAccessor {
   label = input<string>('');
@@ -16,9 +16,9 @@ export class TextInput implements ControlValueAccessor {
     this.ngControl.valueAccessor = this;
   }
 
-  writeValue(obj: any): void {}
-  registerOnChange(fn: any): void {}
-  registerOnTouched(fn: any): void {}
+  writeValue(obj: any): void { }
+  registerOnChange(fn: any): void { }
+  registerOnTouched(fn: any): void { }
 
   get control(): FormControl {
     return this.ngControl.control as FormControl;
