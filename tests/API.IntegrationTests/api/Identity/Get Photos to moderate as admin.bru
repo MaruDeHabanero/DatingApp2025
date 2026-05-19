@@ -1,11 +1,11 @@
 meta {
-  name: Get Roles as admin
+  name: Get Photos to moderate as admin
   type: http
-  seq: 8
+  seq: 10
 }
 
 get {
-  url: {{baseUrl}}/api/admin/users-with-roles
+  url: {{baseUrl}}/api/admin/photos-to-moderate
   body: none
   auth: bearer
 }

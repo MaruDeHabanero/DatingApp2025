@@ -1,7 +1,7 @@
 meta {
-  name: Login as arenita and save token to env
+  name: Login as admin
   type: http
-  seq: 1
+  seq: 5
 }
 
 post {
@@ -12,7 +12,7 @@ post {
 
 body:json {
   {
-    "email": "arenita@test.com",
+    "email": "admin@test.com",
     "password": "Pa$$w0rd"
   }
 }
@@ -23,7 +23,7 @@ tests {
   });
   
   const data = res.body;
-  bru.setVar('token', data.token);
+  bru.setVar('adminToken', data.token);
 }
 
 settings {
