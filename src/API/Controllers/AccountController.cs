@@ -5,6 +5,7 @@ using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 using API.Mappers;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,7 @@ namespace API.Controllers;
 /// <summary>
 /// Account controller.
 /// </summary>
-public class AccountController(AppDbContext context, ITokenService tokenService) : BaseApiController
+public class AccountController(UserManager<AppUser> userManager, ITokenService tokenService) : BaseApiController
 {
     /// <summary>
     /// Creates an User.
@@ -38,8 +39,6 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
     [HttpPost("register")]
     public async Task<ActionResult<UserResponse>> Register(RegisterRequest request)
     {
-        if (await EmailExists(request.Email)) return BadRequest("Email is already in use");
-        using var hmac = new HMACSHA512();
         var user = new AppUser
         {
             DisplayName = request.DisplayName,
@@ -54,8 +53,18 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
                 BirthDay = request.BirthDay
             }
         };
-        context.Users.Add(user);
-        await context.SaveChangesAsync();
+        
+        var result = await userManager.CreateAsync(user, request.Password);
+
+        if (!result.Succeeded)
+        {
+            foreach(var error in result.Errors)
+            {
+                ModelState.AddModelError("identity", error.Description);
+            }
+
+            return ValidationProblem();
+        }
 
         return user.ToDto(tokenService);
     }
@@ -72,14 +81,14 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
     [HttpPost("login")]
     public async Task<ActionResult<UserResponse>> Login(LoginRequest request)
     {
-        var user = await context.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
+        var user = await userManager.FindByEmailAsync(request.Email);
+
         if (user == null) return Unauthorized("Invalid email or password");
         
-        return user.ToDto(tokenService);
-    }
+        var result = await userManager.CheckPasswordAsync(user, request.Password);
 
-    private async Task<bool> EmailExists(string email)
-    {
-        return await context.Users.AnyAsync(u => u.Email!.ToLower() == email.ToLower());
+        if (!result) return Unauthorized("Invalid username or password");
+
+        return user.ToDto(tokenService);
     }
 }
