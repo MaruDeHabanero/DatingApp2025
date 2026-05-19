@@ -12,7 +12,8 @@ import { MemberProfile } from '../features/member-profile/member-profile';
 import { MemberPhotos } from '../features/member-photos/member-photos';
 import { MemberMessages } from '../features/member-messages/member-messages';
 import { memberResolver } from '../features/members/member-resolver';
-import {preventUnsavedChangesGuard} from '../core/guards/prevent-unsaved-changes-guard';
+import { preventUnsavedChangesGuard } from '../core/guards/prevent-unsaved-changes-guard';
+import { Admin } from '../features/admin/admin';
 
 export const routes: Routes = [
   { path: "", component: Home },
@@ -35,7 +36,8 @@ export const routes: Routes = [
         ]
       },
       { path: "lists", component: Lists },
-      { path: "messages", component: Messages }
+      { path: "messages", component: Messages },
+      { path: "admin", component: Admin }
     ]
   },
   { path: "errors", component: TestErrors },
