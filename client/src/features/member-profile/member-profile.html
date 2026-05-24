@@ -59,11 +59,11 @@
             class="btn btn-sucess"
           >
             Update profile
-          </button>
-        </div>
-      </form>
-    } @else {
-      <div>{{ member.description }}</div>
-    }
-  </div>
+        </button>
+      </div>
+    </form>
+  } @else {
+    <div>{{member.description || 'User has not updated their description.'}}</div>
+  }
+</div>
 }
